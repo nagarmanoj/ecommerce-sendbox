@@ -17,7 +17,7 @@ services:
     build: .
     container_name: django_app
     ports:
-      - '8000:8000'
+      - '8011:8011'
     volumes:
       - .:/app
     environment:
