@@ -1,1 +1,706 @@
-<h1>product create</h1>
+{% extends 'backend-layout.html'%}
+
+{% block content %}
+<section>
+    <form action="" id="productFormSubmit" method="POST">
+        {% csrf_token %}
+        <div
+            class="grid grid-cols-1 px-4 pt-6 xl:grid-cols-3 xl:gap-4 dark:bg-gray-900"
+        >
+            <div class="mb-4 col-span-full xl:mb-2">
+                <nav class="flex mb-5" aria-label="Breadcrumb">
+                    <ol
+                        class="inline-flex items-center space-x-1 text-sm font-medium md:space-x-2"
+                    >
+                        <li class="inline-flex items-center">
+                            <a
+                                href="#"
+                                class="inline-flex items-center text-gray-700 hover:text-primary-600 dark:text-gray-300 dark:hover:text-primary-500"
+                            >
+                                <svg
+                                    class="w-5 h-5 mr-2.5"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    ><path
+                                        d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
+                                    ></path></svg>
+                                Home
+                            </a>
+                        </li>
+                        <li>
+                            <div class="flex items-center">
+                                <svg
+                                    class="w-6 h-6 text-gray-400"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    ><path
+                                        fill-rule="evenodd"
+                                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                        clip-rule="evenodd"></path></svg>
+                                <a
+                                    href="#"
+                                    class="ml-1 text-gray-700 hover:text-primary-600 md:ml-2 dark:text-gray-300 dark:hover:text-primary-500"
+                                    >Pages</a
+                                >
+                            </div>
+                        </li>
+                        <li>
+                            <div class="flex items-center">
+                                <svg
+                                    class="w-6 h-6 text-gray-400"
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    ><path
+                                        fill-rule="evenodd"
+                                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                                        clip-rule="evenodd"></path></svg>
+                                <span
+                                    class="ml-1 text-gray-400 md:ml-2 dark:text-gray-500"
+                                    aria-current="page">Playground</span
+                                >
+                            </div>
+                        </li>
+                    </ol>
+                </nav>
+                <h1
+                    class="text-xl font-semibold text-gray-900 sm:text-2xl dark:text-white"
+                >
+                    New Product
+                </h1>
+            </div>
+            <!-- Right Content -->
+            
+            <div class="col-span-full xl:col-auto">
+                <div
+                    class="flex flex-col p-4 mb-4 space-y-6 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800"
+                >
+                    <div
+                        class="px-4 py-2 text-gray-400  rounded dark:border-gray-600"
+                    >
+                        <h3>Thumbnail</h3>
+                    </div>
+                    <div
+                        class="px-4 py-2 text-gray-400  rounded dark:border-gray-600"
+                    >
+                        <input type="file" id="thumbnail_image" name="image" accept="image/*" onchange="loadFile(event)"/>
+                        <div class="flex flex-1">
+                            <img id="outputLoadThumbnail" height="150px" width="150px" class="image-fluid"/>
+                        </div>
+                    </div>                    
+                </div>                
+                <div
+                    class="flex flex-col p-4 mb-4 space-y-6 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800"
+                >
+                    <div
+                        class="px-4 py-2 text-gray-400  rounded dark:border-gray-600"
+                    >
+                        <h3>Status</h3>
+                    </div>
+                    <div
+                        class="px-4 py-2 text-gray-400  rounded dark:border-gray-600"
+                    >
+                        <div>                            
+                            <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">                                
+                                <option value="Publish">Publish</option>
+                                <option value="Draft">Draft</option>
+                                <option value="Unpublish">Unpublish</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div
+                    class="flex flex-col p-4 mb-4 space-y-6 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800"
+                >
+                    <div
+                        class="px-4 py-2 text-gray-400   rounded dark:border-gray-600"
+                    >
+                        <h3>Product Details</h3>
+                    </div>
+                    <div
+                        class="px-4 py-2 text-gray-400  rounded dark:border-gray-600"
+                    >
+                        <div>
+                            <div>
+                                <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categories</label>
+                                <select id="productCategory" name="product_category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">                                
+                                    <option value="Publish">Publish</option>
+                                    <option value="Draft">Draft</option>
+                                    <option value="Unpublish">Unpublish</option>
+                                    <option value="Inactive">Inactive</option>
+                                </select>
+                            </div>
+                            <div>
+                                <button>
+                                    + Create new Category
+                                </button>
+                            </div>
+                        </div>                        
+                    </div>
+                    <div
+                        class="px-4 py-2 text-gray-400  rounded dark:border-gray-600"
+                    >
+                        <div>
+                            <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tags</label>
+                            <input
+                                type="text"
+                                name="tags"
+                                id="tags"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                placeholder="Tags"                                
+                            />
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="flex flex-col p-4 mb-4 space-y-6 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800"
+                >
+                    <div
+                        class="px-4 py-2 text-gray-400  rounded dark:border-gray-600"
+                    >
+                        <div>
+                            <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Brands</label>
+                            <select id="productBrand" name="product_brand" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">                                
+                                <option value="Publish">Publish</option>
+                                <option value="Draft">Draft</option>
+                                <option value="Unpublish">Unpublish</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                        </div>
+                    </div>                    
+                    
+                </div>
+            </div>
+            <div class="col-span-2">
+                
+
+                    <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
+                        <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab" data-tabs-toggle="#default-tab-content" role="tablist">
+                            <li class="me-2" role="presentation">
+                                <button class="inline-block p-4 border-b-2 rounded-t-lg" id="profile-tab" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">General</button>
+                            </li>
+                            <li class="me-2" role="presentation">
+                                <button class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300" id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Advance</button>
+                            </li>                        
+                        </ul>
+                    </div>
+                    <div id="default-tab-content">
+                        <div  id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <div
+                                class="flex flex-col mb-4 space-y-6 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800"
+                            >
+                                <div
+                                    class="text-gray-400  rounded dark:border-gray-600"
+                                >
+                                    <h3>General Imformation</h3>
+                                </div>
+                                <div
+                                    class="text-gray-400  rounded dark:border-gray-600"
+                                >
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label
+                                                for="name"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                >Product Title</label
+                                            >
+                                            <input
+                                                type="text"
+                                                name="product_name"
+                                                id="productName"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Type product name"
+                                                required
+                                            />
+                                        </div>
+                                        <div>
+                                            <label
+                                                for="description"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                >Description</label
+                                            >
+                                            <textarea
+                                                id="product_description"
+                                                name="product_description"
+                                                rows="4"
+                                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Enter event description here"
+                                                ></textarea
+                                            >
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div
+                                    class="mt-4  rounded dark:border-gray-600"
+                                >
+                                    <!-- <h3>Card footer</h3> -->
+                                </div>
+                            </div>
+                            <div
+                                class="flex flex-col p-4 mb-4 space-y-6 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800"
+                            >
+                                <div
+                                    class="px-4 py-2 text-gray-400  rounded dark:border-gray-600"
+                                >
+                                    <h3>Media</h3>
+                                </div>
+                                <div
+                                    class="px-4 py-2 text-gray-400 border border-gray-200 border-dashed rounded dark:border-gray-600 dropzone"
+                                >
+                                    <h3>Drag file here or click to upload</h3>
+                                
+                                        <div class="fallback">
+                                            <input id="fileUpload" name="file" type="file" multiple />
+                                        </div>
+                                        <div class="dz-preview dz-file-preview">
+                                            <div class="dz-details">
+                                            <div class="dz-filename"><span data-dz-name></span></div>
+                                            <div class="dz-size" data-dz-size></div>
+                                            <img data-dz-thumbnail />
+                                            </div>
+                                            <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
+                                            <div class="dz-success-mark"><span>✔</span></div>
+                                            <div class="dz-error-mark"><span>✘</span></div>
+                                            <div class="dz-error-message"><span data-dz-errormessage></span></div>
+                                        </div>
+                                    
+                                    
+                                </div>
+                                <div
+                                    class="px-4 py-2 text-gray-400  rounded dark:border-gray-600"
+                                >
+                                    <p>Set the product media galery</p>
+                                </div>
+                            </div>
+                            <div
+                                class="flex flex-col p-4 mb-4 space-y-6 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800"
+                            >
+                                <div
+                                    class="px-4 py-2 text-gray-400  rounded dark:border-gray-600"
+                                >
+                                    <h3>Pricing</h3>
+                                </div>
+                                <div
+                                    class="text-gray-400  rounded dark:border-gray-600"
+                                >
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label
+                                                for="name"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                >Base Price</label
+                                            >
+                                            <input
+                                                type="number"
+                                                name="product_price"
+                                                id="productPrice"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Type product name"
+                                                required
+                                            />
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <label
+                                                for="description"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                >Discount Type</label
+                                            >
+                                            <div class="flex gap-3"> 
+                                                <div class="flex gap-4 flex-1 items-center px-4 py-2 text-gray-400 border border-gray-200 border-dashed rounded dark:border-gray-600">                                    
+                                                    <input type="radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                    <label for="">No Discount</label>
+                                                </div>
+                                                <div class="flex flex-1 gap-4 items-center px-4 py-2 text-gray-400 border border-gray-200 border-dashed rounded dark:border-gray-600">
+                                                    <input type="radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                    <label for="">Percentage %</label>
+                                                </div>
+                                                <div class="flex flex-1 gap-4 items-center px-4 py-2 text-gray-400 border border-gray-200 border-dashed rounded dark:border-gray-600">
+                                                    <input type="radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+                                                    <label for="">Fixed Price</label>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </div>				
+                            </div>
+                        </div>
+                        <div  id="dashboard" role="tabpanel" aria-labelledby="dashboard-tab">
+                            <div
+                                class="flex flex-col mb-4 space-y-6 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800"
+                            >
+                                <div
+                                    class="text-gray-400  rounded dark:border-gray-600"
+                                >
+                                    <h3>Inventory</h3>
+                                </div>
+                                <div
+                                    class="text-gray-400  rounded dark:border-gray-600"
+                                >
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label
+                                                for="name"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                >SKU*</label
+                                            >
+                                            <input
+                                                type="text"
+                                                name="stock_keeping_unit"
+                                                id="stockKeepingUnit"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Type product name"
+                                                required
+                                            />
+                                        </div>
+                                        <div>
+                                            <label
+                                                for="name"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                >Barcode UPC*</label
+                                            >
+                                            <input
+                                                type="text"
+                                                name="universal_product_code"
+                                                id="universalProductCode"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Type product name"
+                                                required
+                                            />
+                                        </div>
+                                        <div>
+                                            <label
+                                                for="name"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                >Quantity*</label
+                                            >
+                                            <input
+                                                type="text"
+                                                name="quantity"
+                                                id="quantity"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Type product name"                                                
+                                            />
+                                        </div>                                    
+                                    </div>
+                                    
+                                </div>
+                                <div
+                                    class="mt-4  rounded dark:border-gray-600"
+                                >
+                                    <!-- <h3>Card footer</h3> -->
+                                </div>
+                            </div>
+                            <div
+                                class="flex flex-col p-4 mb-4 space-y-6 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800"
+                            >
+                                <div
+                                    class="px-4 py-2 text-gray-400  rounded dark:border-gray-600"
+                                >
+                                    <h3>Variations</h3>
+                                </div>
+                                <div
+                                    class="text-gray-400"
+                                >
+                                    <div class="space-y-4 field_wrapper">
+                                        <!-- <div class="flex gap-3"> 
+                                            <div class="flex gap-4 flex-1  px-4 py-2 text-gray-400 rounded dark:border-gray-600">                                    
+                                                <input type="text" placeholder="variation name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                                
+                                            </div>
+                                            <div class="flex flex-1 gap-4  px-4 py-2 text-gray-400  rounded dark:border-gray-600">
+                                                <input type="text" placeholder="variation value" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">                                                
+                                            </div>
+                                            <div class="flex flex-1 gap-4  px-4 py-2 text-gray-400  rounded dark:border-gray-600">                                                
+                                                <button class="text-red-600">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                                                    </svg>                                                      
+                                                </button>
+                                            </div>                                            
+                                        </div> -->
+                                    </div>
+                                
+                                </div>
+                                <div
+                                    class="px-4 py-2 text-gray-400  rounded dark:border-gray-600"
+                                >
+                                    <button type="button" class="add_button_variation">
+                                    + Add Another Variation
+                                    </button>
+                                </div>
+                            </div>
+                            <div
+                                class="flex flex-col p-4 mb-4 space-y-6 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800"
+                            >
+                                <div
+                                    class="px-4 py-2 text-gray-400  rounded dark:border-gray-600"
+                                >
+                                    <h3>Shipping</h3>
+                                </div>
+                                <div
+                                    class="text-gray-400  rounded dark:border-gray-600"
+                                >
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label
+                                                for="name"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                >Weight</label
+                                            >
+                                            <input
+                                                type="number"
+                                                name="price"
+                                                id="name"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Type product name"
+                                                required=""
+                                            />
+                                        </div>
+                                        <div class="flex flex-col">
+                                            <label
+                                                for="description"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                >Dimension</label
+                                            >
+                                            <div class="flex gap-3"> 
+                                                <div class="flex gap-4 flex-1  px-4 py-2 text-gray-400 rounded dark:border-gray-600">                                    
+                                                    <input type="text" placeholder="Weight(w)" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                                    
+                                                </div>
+                                                <div class="flex flex-1 gap-4  px-4 py-2 text-gray-400  rounded dark:border-gray-600">
+                                                    <input type="text" placeholder="Height(h)" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                                    
+                                                </div>
+                                                <div class="flex flex-1 gap-4  px-4 py-2 text-gray-400 rounded dark:border-gray-600">
+                                                    <input type="text" placeholder="Length(l)" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                                    
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                    </div>
+                                    
+                                </div>				
+                            </div>
+                            <div
+                                class="flex flex-col mb-4 space-y-6 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800"
+                            >
+                                <div
+                                    class="text-gray-400  rounded dark:border-gray-600"
+                                >
+                                    <h3>Meta Options</h3>
+                                </div>
+                                <div
+                                    class="text-gray-400  rounded dark:border-gray-600"
+                                >
+                                    <div class="space-y-4">
+                                        <div>
+                                            <label
+                                                for="name"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                >Meta Tag Title</label
+                                            >
+                                            <input
+                                                type="text"
+                                                name="meta_title"
+                                                id="meta_title"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Type product name"
+                                                
+                                            />
+                                        </div>
+                                        <div>
+                                            <label
+                                                for="description"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                >Meta Tag Description</label
+                                            >
+                                            <textarea
+                                                id="meta_description"
+                                                name="meta_description"
+                                                rows="4"
+                                                class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Enter event description here"
+                                                ></textarea
+                                            >
+                                        </div>
+                                        <div>
+                                            <label
+                                                for="name"
+                                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                                >Meta Tag Keywords</label
+                                            >
+                                            <input
+                                                type="text"
+                                                name="meta_keywords"
+                                                id="meta_keywords"
+                                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                                                placeholder="Type product name"
+                                                
+                                            />
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                                <div
+                                    class="mt-4  rounded dark:border-gray-600"
+                                >
+                                    <!-- <h3>Card footer</h3> -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                    <div class="flex flex-1 justify-end">
+                        <button type="submit" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
+                            Save Change
+                        </button>
+                    </div>
+                    
+
+
+
+                
+            </div>
+        </div>
+    </form>
+</section>
+
+{% endblock %}
+
+{% block script %}
+<script>
+    var loadFile = function(event) {
+      var output = document.getElementById('outputLoadThumbnail');
+      output.src = URL.createObjectURL(event.target.files[0]);
+      output.onload = function() {
+        URL.revokeObjectURL(output.src) // free memory
+      }
+    };
+</script>
+<script>
+    jQuery(dicument).ready(function(){
+        Dropzone.options.myElement = {
+  
+        init: function() {
+            this.on("addedfile", file => {
+            console.log("A file has been added");
+            });
+        }
+        };
+    }); 
+</script>
+<script>
+    jQuery(document).ready(function(){
+        var maxField = 15; //Input fields increment limitation
+        var addButton = $('.add_button_variation'); //Add button selector
+        var wrapper = $('.field_wrapper'); //Input field wrapper
+        var fieldHTML = `
+            <div class="flex gap-3"> 
+                <div class="flex gap-4 flex-1  px-4 py-2 text-gray-400 rounded dark:border-gray-600">                                    
+                    <select id="variation_name" name="variation_name[]" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">                                
+                        <option value="">Select variation</option>
+                        <option value="Color">Color</option>
+                        <option value="Size">Size</option>
+                        <option value="Height">Height</option>
+                    </select>
+                </div>
+                <div class="flex flex-1 gap-4  px-4 py-2 text-gray-400  rounded dark:border-gray-600">
+                    <input type="text" name="variation_value[]" id="variation_value"  placeholder="variation value" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">                                                
+                </div>
+                <div class="flex flex-1 gap-4  px-4 py-2 text-gray-400  rounded dark:border-gray-600">                                                
+                    <button type="button" class="text-red-600 remove_variation_button">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                        </svg>                                                      
+                    </button>
+                </div>                                            
+            </div>
+        `;
+        var x = 1; //Initial field counter is 1
+
+        // Once add button is clicked
+        $(addButton).click(function(){
+            //Check maximum number of input fields
+            if(x < maxField){ 
+                x++; //Increase field counter
+                $(wrapper).append(fieldHTML); //Add field html
+            }else{
+                alert('A maximum of '+maxField+' fields are allowed to be added. ');
+            }
+        });
+        // Once remove button is clicked
+        $(wrapper).on('click', '.remove_variation_button', function(e){
+            e.preventDefault();
+            $(this).parent().parent('div').remove(); //Remove field html
+            x--; //Decrease field counter
+        });
+    });
+</script>
+<script>    
+    jQuery(function() {
+      jQuery('#productFormSubmit').on('submit', function(event) {
+        event.preventDefault();
+
+        // const mediaDropZone = new Dropzone("#product_media",{
+        //     url:'',
+            
+        // })
+        let variationName = document.getElementById("variation_name").value;
+        console.log(variationName);
+
+        var formData = new FormData();
+        formData.append("product_name",document.getElementById("productName").value);
+        formData.append("product_description",document.getElementById("product_description").value);        
+        formData.append("product_price",document.getElementById("productPrice").value);  
+        formData.append("sku",document.getElementById("stockKeepingUnit").value);
+        formData.append("upc",document.getElementById("universalProductCode").value);
+        formData.append("quantity",document.getElementById("quantity").value);  
+        formData.append("meta_title",document.getElementById("meta_title").value); 
+        formData.append("meta_keywords",document.getElementById("meta_keywords").value);     
+        formData.append("brand",document.getElementById("productBrand").value);
+        formData.append("category",document.getElementById("productCategory").value);        
+        formData.append("meta_description",document.getElementById("meta_description").value);
+
+        // formData.append("current_user",document.getElementById("current_user").value);
+        // formData.append("is_active",document.getElementById("is_active").value);
+        formData.append("thumbnail_image",document.getElementById("thumbnail_image").files[0]);
+        // fileArray = getElementById("product_media").files;
+        // for(let i = 0; i < fileArray.length; i++){          
+        //     formData.append(`media${i}`,fileArray[i]);
+            
+        // }   
+        console.log(formData);
+
+        jQuery.ajax({
+          url: '{% url "store:add-product" %}',
+          type: 'POST',
+          data: formData,
+          dataType: 'json',
+          cache: false,
+          processData: false,
+          contentType: false,
+          enctype: 'multipart/form-data',
+          success: function(response) {
+            if (response.success) {
+                console.log("success");
+                // Swal.fire('Correct!', 'You got the answer right!', 'success')
+                //   jQuery('#productForm').hide();
+                //   jQuery('#alert').html('<div class="alert alert-success">Thank you for your message!</div>').show();
+            } else {
+              //jQuery('#alert').html('<div class="alert alert-danger">' + response.errors + '</div>').show();
+            //   Swal.fire('Incorrect...', 'You failed!', 'error')
+            }
+          }
+        });
+      });
+    });  
+</script>
+{% endblock %}

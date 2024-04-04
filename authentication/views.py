@@ -42,8 +42,8 @@ def login_view(request):
         return redirect("landing:index")
     
     if request.method == "POST":
-        email = request.POST['email']
-        password = request.POST['password']
+        email = request.POST.get("email")
+        password = request.POST.get("password")
         print(email,password)
         try:
             username = User.objects.get(email=email.lower()).username
@@ -52,8 +52,8 @@ def login_view(request):
             if user is not None:
                 login(request,user)
                 messages.success(request,"You are logged in")
-                # return redirect("landing:index")
-                return JsonResponse({'success':True})
+                return redirect("landing:index")
+                # return JsonResponse({'success':True})
             else:
                 messages.warning(request,"User does not exist create an account.")
         except:

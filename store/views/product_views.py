@@ -44,27 +44,27 @@ def add_product_view(request):
     if request.method == 'POST':
         print(request.POST)
         print(request.FILES)
-        titleData = request.POST['title']
-        brandData = Brand.objects.get(title=request.POST['brand'])
-        categoryData = Category.objects.get(name=request.POST['category'])
-        short_description = request.POST['short_description']
-        current_user = User.objects.get(username=request.POST['current_user'])
-        is_active_true = request.POST['is_active']
-        thumbnail = request.FILES['image']
+        # titleData = request.POST['title']
+        # brandData = Brand.objects.get(title=request.POST['brand'])
+        # categoryData = Category.objects.get(name=request.POST['category'])
+        # short_description = request.POST['short_description']
+        # current_user = User.objects.get(username=request.POST['current_user'])
+        # is_active_true = request.POST['is_active']
+        # thumbnail = request.FILES['image']
 
         # # image upload
-        fs = FileSystemStorage()
-        filePath = fs.save(
-            f'user-{request.user.id}/{thumbnail.name}', thumbnail)
+        # fs = FileSystemStorage()
+        # filePath = fs.save(
+        #     f'user-{request.user.id}/{thumbnail.name}', thumbnail)
 
-        data = Product(
-            title=titleData,
-            category=categoryData,
-            description=short_description,
-            user=current_user,
-            thumbnail=filePath
-        )
-        data.save()
+        # data = Product(
+        #     title=titleData,
+        #     category=categoryData,
+        #     description=short_description,
+        #     user=current_user,
+        #     thumbnail=filePath
+        # )
+        # data.save()
         return JsonResponse({'success': True})
 
     context = {
