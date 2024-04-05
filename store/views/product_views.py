@@ -78,7 +78,7 @@ def add_product_view(request):
 
 def edit_product_view(request):
     product = Product.objects.get(pid=request.GET.get('pid'))
-
+    print(product)    
     brands = Brand.objects.all()
     categories = Category.objects.all()
     users = User.objects.all()
